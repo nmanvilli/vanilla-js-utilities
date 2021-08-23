@@ -31,6 +31,6 @@ function scrollViewportTo(y) {
 // --------------------------------------------------
 function scrollViewportToElement(el) {
 	var opts = {};
-    if (!browser.options.prefersReducedMotion) opts.behavior = 'smooth';
-    el.scrollIntoView(opts);
+	if (!browser.options.prefersReducedMotion) opts.behavior = 'smooth';
+	el.scrollIntoView(opts);
 }
