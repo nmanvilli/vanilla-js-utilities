@@ -10,3 +10,18 @@ function setCookie(name, value, millis = false) {
     }
     document.cookie = name+'='+value+expires+'; path=/';
 }
+
+// --------------------------------------------------
+// Get value of cookie with given name (NULL if no cookie is set)
+// --------------------------------------------------
+function getCookie(name) {
+    name += '=';
+    var cookies = decodeURIComponent(document.cookie);
+    cookies = cookies.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        var c = cookies[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return null;
+}
