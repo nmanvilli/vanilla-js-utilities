@@ -14,8 +14,11 @@ function nm_create_document_event( name ) {
 function nm_add_event_listener( name, callback ) {
     if (window.addEventListener) {
         window.addEventListener(name, callback);
+        return true;
     }
     else if ( window.attachEvent ) { // MSIE
         window.attachEvent(name, callback);
+        return true;
     }
+    return false;
 }
