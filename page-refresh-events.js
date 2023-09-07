@@ -37,7 +37,6 @@ var scroll = function() {
 var lastScrollTop = 0;
 var fallbackLoopTimeout = null;
 var fallbackLoopInterval = 100;
-
 var loop = function() {
     clearTimeout(fallbackLoopTimeout);
     document.body.dispatchEvent(nm_loop_event);
