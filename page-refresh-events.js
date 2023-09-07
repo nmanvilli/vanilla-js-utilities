@@ -64,8 +64,8 @@ var loop = function() {
 document.addEventListener('DOMContentLoaded', function () {
 
     // Add listeners and start loop
-    nm_add_event_listener('resize', resize );
-    if (! browser.supports.requestAnimationFrame ) nm_add_event_listener('scroll', loop );
+    nm_add_event_listener('resize', resize);
+    if (! browser.supports.requestAnimationFrame ) nm_add_event_listener('scroll', loop);
 
     resize();
     loop();
