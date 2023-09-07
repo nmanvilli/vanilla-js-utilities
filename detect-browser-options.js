@@ -1,6 +1,5 @@
-var browser = {
-	options: {}
-}
+if (!browser) var browser = {};
+browser.options = {};
 
 // --------------------------------------------------
 // prefers-reduced-motion
