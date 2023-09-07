@@ -38,20 +38,26 @@ var scroll = function() {
 // Draw cycle
 // --------------------
 var lastScrollTop = 0;
+var fallbackLoopTimeout = null;
+var fallbackLoopInterval = 100;
+
 var loop = function() {
+    clearTimeout(fallbackLoopTimeout);
     document.body.dispatchEvent(nm_loop_event);
 
     var scrollTop = document.documentElement.scrollTop;
     if (lastScrollTop === scrollTop) {
       // Scroll position is the same
-      raf(loop);
+      if (browser.supports.requestAnimationFrame) raf(loop);
+      else fallbackLoopTimeout = setTimeout(loop, fallbackLoopInterval);
       return;
     }
 
     // Scroll position has changed
     lastScrollTop = scrollTop;
     scroll();
-    raf(loop);
+    if (browser.supports.requestAnimationFrame) raf(loop);
+    else fallbackLoopTimeout = setTimeout(loop, fallbackLoopInterval);
 };
 
 
@@ -61,6 +67,7 @@ var loop = function() {
 document.addEventListener('DOMContentLoaded', function () {
     // Add listeners and start loop
     window.addEventListener('resize', resize);
+    if (! browser.supports.requestAnimationFrame ) window.addEventListener('scroll', loop);
     resize();
     loop();
 });
