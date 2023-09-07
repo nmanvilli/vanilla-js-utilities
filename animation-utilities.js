@@ -34,3 +34,40 @@ function scrollViewportToElement(el) {
 	if (!browser.options.prefersReducedMotion) opts.behavior = 'smooth';
 	el.scrollIntoView(opts);
 }
+
+
+// --------------------------------------------------
+// Detect if given DOM element is in the viewport.
+//    If partiallyVisible is true, returns true even if the
+//    element is not completely contained in the viewport.
+// --------------------------------------------------
+function isElementInViewport(el, partiallyVisible = false) {
+    const { top, left, bottom, right } = el.getBoundingClientRect();
+    const { innerHeight, innerWidth } = window;
+    if (partiallyVisible) {
+       return ( (top >= 0 && top <= innerHeight) || (bottom >= 0 && bottom <= innerHeight) ) &&
+            ( (left >= 0 && left <= innerWidth) || (right >= 0 && right <= innerWidth) );
+    }  
+    return top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
+}
+
+
+// --------------------------------------------------
+// Make given DOM fullscreen.
+// --------------------------------------------------
+function makeElementFullscreen(el) {
+    if (el.webkitEnterFullScreen) el.webkitEnterFullScreen();
+    else if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    else {
+        var requestFullscreen = document.documentElement.requestFullscreen ||
+            document.documentElement.webkitRequestFullscreen ||
+            document.documentElement.mozRequestFullscreen ||
+            document.documentElement.requestFullScreen ||
+            document.documentElement.webkitRequestFullScreen ||
+            document.documentElement.mozRequestFullScreen;
+        if (requestFullscreen) requestFullscreen.call(document.documentElement);
+    }
+}
