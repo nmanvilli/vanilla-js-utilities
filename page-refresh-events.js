@@ -1,3 +1,8 @@
+// --------------------------------------------------
+//	Requires: detect-browser-features.js | requestAnimationFrame
+// --------------------------------------------------
+
+
 // --------------------
 // Define custom events
 // Use like this:
