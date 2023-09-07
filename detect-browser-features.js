@@ -1,6 +1,5 @@
-var browser = {
-	supports: {}
-}
+if (!browser) var browser = {};
+browser.supports = {};
 
 // --------------------------------------------------
 // classList
