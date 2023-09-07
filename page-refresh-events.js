@@ -1,25 +1,17 @@
 // --------------------------------------------------
-//	Requires: detect-browser-features.js | requestAnimationFrame
+//  Requires: detect-browser-features.js | requestAnimationFrame
+//  Requires: events.js
 // --------------------------------------------------
 
 
 // --------------------
 // Define custom events
 // Use like this:
-//    document.body.addEventListener( 'nm-scroll', function(e){ console.log("scroll"+lastScrollTop); }, false );
+//    nm_add_event_listener( 'nm-scroll', function(e){ console.log("scroll"+lastScrollTop); } );
 // --------------------
-
-// Draw loop event
-var nm_loop_event = document.createEvent('Event');
-nm_loop_event.initEvent('nm-loop', true, true);
-
-// Resize event
-var nm_resize_event = document.createEvent('Event');
-nm_resize_event.initEvent('nm-resize', true, true);
-
-// Scroll event
-var nm_scroll_event = document.createEvent('Event');
-nm_scroll_event.initEvent('nm-scroll', true, true);
+var nm_loop_event = nm_create_document_event('nm-loop');
+var nm_resize_event = nm_create_document_event('nm-resize');
+var nm_scroll_event = nm_create_document_event('nm-scroll');
 
 
 // --------------------
@@ -70,9 +62,11 @@ var loop = function() {
 // Start all
 // --------------------
 document.addEventListener('DOMContentLoaded', function () {
+
     // Add listeners and start loop
-    window.addEventListener('resize', resize);
-    if (! browser.supports.requestAnimationFrame ) window.addEventListener('scroll', loop);
+    nm_add_event_listener('resize', resize );
+    if (! browser.supports.requestAnimationFrame ) nm_add_event_listener('scroll', loop );
+
     resize();
     loop();
 });
