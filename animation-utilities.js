@@ -57,8 +57,27 @@ function isElementInViewport(el, partiallyVisible = false) {
 
 
 // --------------------------------------------------
-// Make given DOM fullscreen.
+// Make given DOM element fullscreen.
 // --------------------------------------------------
+function makeElementFullscreen(el) {
+	var elementRequestFullscreen = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+	if (elementRequestFullscreen) elementRequestFullscreen.call(el);
+}
+
+// --------------------------------------------------
+//  Cancel fullscreen for given DOM element
+// --------------------------------------------------
+function cancelElementFullscreen(el) {
+	var elementExitFullscreen = el.exitFullscreen || el.webkitExitFullscreen || el.mozCancelFullscreen || el.msExitFullscreen;
+	if (elementExitFullscreen) {
+		elementExitFullscreen.call(el);
+		return;
+	}
+	var documentExitFullscreen = document.documentElement.exitFullscreen || document.documentElement.webkitExitFullscreen || document.documentElement.mozExitFullscreen || document.documentElement.msExitFullscreen;
+	documentExitFullscreen.call(document.documentElement);
+}
+
+/*
 function makeElementFullscreen(el) {
     if (el.webkitEnterFullScreen) el.webkitEnterFullScreen();
     else if (el.requestFullscreen) el.requestFullscreen();
@@ -75,3 +94,4 @@ function makeElementFullscreen(el) {
         if (requestFullscreen) requestFullscreen.call(document.documentElement);
     }
 }
+*?
